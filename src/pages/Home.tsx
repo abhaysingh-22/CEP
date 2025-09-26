@@ -49,7 +49,7 @@ const Home = () => {
                 Calculate Your Impact
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary px-8 py-3 text-lg">
+            <Button asChild variant="outline" size="lg" className="border-white text-green-800 hover:bg-white hover:text-primary px-8 py-3 text-lg">
               <Link to="/destinations">
                 <MapPin className="mr-2 h-5 w-5" />
                 Explore Green Destinations
