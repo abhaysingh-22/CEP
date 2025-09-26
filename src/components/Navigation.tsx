@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Menu, X, Leaf, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "@/integrations/supabase/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "./ThemeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +29,7 @@ const Navigation = () => {
     { name: "Data", path: "/data" },
     { name: "News", path: "/news" },
     { name: "Community", path: "/community" },
+    { name: "Notes", path: "/notes" },
     { name: "Feedback", path: "/feedback" },
   ];
 
@@ -80,8 +81,13 @@ const Navigation = () => {
               </Link>
             ))}
             
-            {/* User Profile / Auth */}
+            {/* Theme Toggle */}
             <div className="ml-4">
+              <ThemeToggle />
+            </div>
+            
+            {/* User Profile / Auth */}
+            <div className="ml-2">
               {loading ? (
                 <div className="w-8 h-8 bg-muted rounded-full animate-pulse" />
               ) : user ? (
@@ -149,13 +155,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-          className="lg:hidden bg-card border-t border-border"
-        >
+        <div className="lg:hidden bg-card border-t border-border">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link
@@ -171,8 +171,63 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            
+            {/* Mobile Theme Toggle */}
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="text-base font-medium text-foreground">Theme</span>
+              <ThemeToggle />
+            </div>
+            
+            {/* Mobile Auth */}
+            {user ? (
+              <div className="px-3 py-2 border-t border-border">
+                <div className="flex items-center gap-3 mb-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={user.user_metadata?.avatar_url} />
+                    <AvatarFallback>
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    {user.user_metadata?.full_name && (
+                      <p className="font-medium text-sm">{user.user_metadata.full_name}</p>
+                    )}
+                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center px-3 py-2 text-sm rounded-md hover:bg-muted"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </Link>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleSignOut();
+                      setIsOpen(false);
+                    }}
+                    className="w-full justify-start text-sm px-3 py-2"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign out
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="px-3 py-2 border-t border-border">
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button variant="default" size="sm" className="w-full">
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
-        </motion.div>
+        </div>
       )}
     </nav>
   );
