@@ -340,53 +340,55 @@ const Chatbot: React.FC = () => {
   // Floating chat button
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 safe-area-bottom">
         <Button
           onClick={() => setIsOpen(true)}
           size="lg"
-          className="rounded-full h-14 w-14 shadow-lg hover:shadow-xl transition-all duration-300 bg-nature-accent hover:bg-nature-accent/90 chatbot-pulse"
+          className="rounded-full h-12 w-12 sm:h-14 sm:w-14 shadow-lg hover:shadow-xl transition-all duration-300 bg-nature-accent hover:bg-nature-accent/90 chatbot-pulse touch-target"
           title="Chat with EcoBot - Your sustainable travel assistant"
         >
-          <MessageSquare className="h-6 w-6" />
+          <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
-        <div className="absolute -top-2 -right-2 h-4 w-4 bg-green-500 rounded-full animate-pulse"></div>
+        <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 h-3 w-3 sm:h-4 sm:w-4 bg-red-600 rounded-full animate-pulse"></div>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 safe-area-bottom">
       <Card className={`transition-all duration-300 shadow-2xl ${
-        isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
+        isMinimized 
+          ? 'w-72 sm:w-80 h-14 sm:h-16' 
+          : 'w-[calc(100vw-2rem)] sm:w-80 md:w-96 h-[calc(100vh-6rem)] sm:h-[500px] md:h-[600px] max-w-md'
       }`}>
         {/* Header */}
-        <CardHeader className="p-4 bg-gradient-to-r from-nature-primary to-nature-accent text-white rounded-t-lg">
+        <CardHeader className="p-3 sm:p-4 bg-gradient-to-r from-nature-primary to-nature-accent text-white rounded-t-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Bot className="h-5 w-5" />
-              <CardTitle className="text-lg font-semibold">EcoBot</CardTitle>
-              <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
+              <Bot className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+              <CardTitle className="text-base sm:text-lg font-semibold">EcoBot</CardTitle>
+              <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 bg-red-400 rounded-full animate-pulse flex-shrink-0"></div>
             </div>
             <div className="flex items-center gap-1">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="text-white hover:bg-white/20 h-8 w-8 p-0"
+                className="text-white hover:bg-white/20 h-7 w-7 sm:h-8 sm:w-8 p-0 touch-target"
               >
                 {isMinimized ? (
-                  <Maximize2 className="h-4 w-4" />
+                  <Maximize2 className="h-3 w-3 sm:h-4 sm:w-4" />
                 ) : (
-                  <Minimize2 className="h-4 w-4" />
+                  <Minimize2 className="h-3 w-3 sm:h-4 sm:w-4" />
                 )}
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20 h-8 w-8 p-0"
+                className="text-white hover:bg-white/20 h-7 w-7 sm:h-8 sm:w-8 p-0 touch-target"
               >
-                <X className="h-4 w-4" />
+                <X className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </div>
           </div>
@@ -395,8 +397,8 @@ const Chatbot: React.FC = () => {
         {!isMinimized && (
           <>
             {/* Messages */}
-            <CardContent className="p-0 h-[480px] flex flex-col">
-              <ScrollArea className="flex-1 p-4">
+            <CardContent className="p-0 h-[calc(100%-8rem)] sm:h-[420px] md:h-[480px] flex flex-col">
+              <ScrollArea className="flex-1 p-3 sm:p-4">
                 <div className="space-y-4">
                   {messages.map((message) => (
                     <div
@@ -412,13 +414,13 @@ const Chatbot: React.FC = () => {
                       )}
                       
                       <div
-                        className={`max-w-[250px] rounded-lg p-3 ${
+                        className={`max-w-[200px] sm:max-w-[250px] rounded-lg p-2 sm:p-3 ${
                           message.role === 'user'
                             ? 'bg-nature-primary text-white'
                             : 'bg-muted text-foreground'
                         }`}
                       >
-                        <p className="text-sm whitespace-pre-wrap break-words">
+                        <p className="text-xs sm:text-sm whitespace-pre-wrap break-words">
                           {message.content}
                         </p>
                         <p className={`text-xs mt-1 opacity-70`}>
@@ -454,16 +456,16 @@ const Chatbot: React.FC = () => {
               </ScrollArea>
 
               {/* Input */}
-              <div className="p-4 border-t">
-                <div className="flex gap-2">
+              <div className="p-3 sm:p-4 border-t">
+                <div className="flex gap-1 sm:gap-2">
                   <Input
                     ref={inputRef}
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder={isListening ? "🎤 Listening... Speak now!" : "Ask me about eco-friendly travel..."}
+                    placeholder={isListening ? "🎤 Listening..." : "Ask about eco-travel..."}
                     disabled={isLoading || isListening}
-                    className="flex-1 text-sm"
+                    className="flex-1 text-xs sm:text-sm"
                   />
                   
                   {/* Voice Control Buttons */}
@@ -473,10 +475,10 @@ const Chatbot: React.FC = () => {
                       disabled={isLoading}
                       size="sm"
                       variant={isListening ? "destructive" : "outline"}
-                      className={`${isListening ? 'animate-pulse' : ''}`}
+                      className={`${isListening ? 'animate-pulse' : ''} touch-target min-w-[2rem] sm:min-w-[2.5rem]`}
                       title={isListening ? "Stop listening" : "Start voice input"}
                     >
-                      {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                      {isListening ? <MicOff className="h-3 w-3 sm:h-4 sm:w-4" /> : <Mic className="h-3 w-3 sm:h-4 sm:w-4" />}
                     </Button>
                   )}
                   
@@ -491,15 +493,15 @@ const Chatbot: React.FC = () => {
                       }}
                       size="sm"
                       variant="outline"
-                      className={`${isSpeaking ? 'animate-pulse' : ''}`}
+                      className={`${isSpeaking ? 'animate-pulse' : ''} touch-target min-w-[2rem] sm:min-w-[2.5rem]`}
                       title={isSpeaking ? "Stop speaking" : voiceEnabled ? "Disable voice responses" : "Enable voice responses"}
                     >
                       {isSpeaking ? (
-                        <VolumeX className="h-4 w-4" />
+                        <VolumeX className="h-3 w-3 sm:h-4 sm:w-4" />
                       ) : voiceEnabled ? (
-                        <Volume2 className="h-4 w-4" />
+                        <Volume2 className="h-3 w-3 sm:h-4 sm:w-4" />
                       ) : (
-                        <VolumeX className="h-4 w-4 opacity-50" />
+                        <VolumeX className="h-3 w-3 sm:h-4 sm:w-4 opacity-50" />
                       )}
                     </Button>
                   )}
@@ -508,9 +510,9 @@ const Chatbot: React.FC = () => {
                     onClick={() => handleSendMessage()}
                     disabled={!inputMessage.trim() || isLoading || isListening}
                     size="sm"
-                    className="bg-nature-accent hover:bg-nature-accent/90"
+                    className="bg-nature-accent hover:bg-nature-accent/90 touch-target min-w-[2rem] sm:min-w-[2.5rem]"
                   >
-                    <Send className="h-4 w-4" />
+                    <Send className="h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 </div>
                 
@@ -539,9 +541,9 @@ const Chatbot: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Voice instructions */}
+                {/* Voice instructions - Show only on larger screens */}
                 {speechSupported && (
-                  <div className="mt-2 text-xs text-muted-foreground bg-muted/50 rounded p-2">
+                  <div className="mt-2 text-xs text-muted-foreground bg-muted/50 rounded p-2 hidden sm:block">
                     <div className="flex items-center gap-2 mb-1">
                       <Mic className="h-3 w-3" />
                       <span className="font-medium">Voice Commands:</span>

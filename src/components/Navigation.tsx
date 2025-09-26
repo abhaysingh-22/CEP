@@ -56,13 +56,13 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-card-eco">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-card-eco safe-area-top">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 text-primary font-bold text-xl">
-            <Leaf className="h-8 w-8 text-nature-accent" />
-            <span>EcoTravel</span>
+          <Link to="/" className="flex items-center space-x-1 sm:space-x-2 text-primary font-bold text-lg sm:text-xl">
+            <Leaf className="h-6 w-6 sm:h-8 sm:w-8 text-nature-accent flex-shrink-0" />
+            <span className="hidden xs:block sm:block">EcoTravel</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -71,7 +71,7 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                className={`px-2 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium transition-colors duration-200 touch-target ${
                   isActive(item.path)
                     ? "bg-primary text-primary-foreground"
                     : "text-foreground hover:text-primary hover:bg-muted"
@@ -155,7 +155,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="lg:hidden bg-card border-t border-border">
+        <div className="lg:hidden bg-card border-t border-border max-h-[calc(100vh-4rem)] overflow-y-auto safe-area-bottom">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link
