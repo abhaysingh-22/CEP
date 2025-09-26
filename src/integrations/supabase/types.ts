@@ -14,7 +14,152 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          id: string
+          username: string | null
+          full_name: string | null
+          avatar_url: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          username?: string | null
+          full_name?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          username?: string | null
+          full_name?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      carbon_calculations: {
+        Row: {
+          id: string
+          user_id: string
+          transport_type: string
+          distance: number
+          carbon_footprint: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          transport_type: string
+          distance: number
+          carbon_footprint: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          transport_type?: string
+          distance?: number
+          carbon_footprint?: number
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "carbon_calculations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      community_experiences: {
+        Row: {
+          id: string
+          user_id: string
+          title: string
+          description: string
+          location: string | null
+          image_url: string | null
+          likes: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          title: string
+          description: string
+          location?: string | null
+          image_url?: string | null
+          likes?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          title?: string
+          description?: string
+          location?: string | null
+          image_url?: string | null
+          likes?: number
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_experiences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      feedback: {
+        Row: {
+          id: string
+          user_id: string | null
+          name: string
+          email: string
+          message: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          name: string
+          email: string
+          message: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          name?: string
+          email?: string
+          message?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
