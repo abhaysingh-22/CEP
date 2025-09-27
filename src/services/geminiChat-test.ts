@@ -28,7 +28,7 @@ export class GeminiChatService {
     
     try {
       this.model = genAI.getGenerativeModel({ 
-        model: 'models/gemini-1.5-flash-8b',
+        model: 'gemini-2.5-flash',  // Updated to working model name
         generationConfig: {
           maxOutputTokens: 300,
           temperature: 0.7,
