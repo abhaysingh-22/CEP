@@ -22,22 +22,42 @@ export interface ChatMessage {
 
 export class GeminiChatService {
   private model: any;
+  private chat: any = null;
+  private conversationHistory: string[] = [];
 
   constructor() {
     console.log('Initializing Gemini Chat Service...');
     
     try {
       this.model = genAI.getGenerativeModel({ 
-        model: 'gemini-2.5-flash',  // Updated to working model name
+        model: 'gemini-2.5-flash',  // Confirmed working model with new API key
         generationConfig: {
-          maxOutputTokens: 300,
+          maxOutputTokens: 500,
           temperature: 0.7,
         }
       });
+      this.initializeChat();
       console.log('Gemini service initialized successfully');
     } catch (error) {
       console.error('Error initializing Gemini service:', error);
       throw error;
+    }
+  }
+
+  private initializeChat() {
+    try {
+      this.chat = this.model.startChat({
+        history: [],
+        generationConfig: {
+          maxOutputTokens: 500,
+          temperature: 0.7,
+        },
+      });
+      console.log('Chat session initialized');
+    } catch (error) {
+      console.error('Error initializing chat session:', error);
+      // Fallback to generateContent if chat fails
+      this.chat = null;
     }
   }
 
@@ -51,24 +71,65 @@ export class GeminiChatService {
         throw new Error('Message cannot be empty');
       }
 
-      // Create a simple, direct prompt
-      const prompt = `You are EcoBot, a friendly assistant for sustainable travel. Answer this question about eco-friendly travel in a helpful way (max 2-3 sentences): ${message}`;
+      let result;
+      let text: string;
+
+      // Always use generateContent with enhanced prompt
+      console.log('Using generateContent with enhanced prompt...');
       
-      console.log('Sending prompt to Gemini API...');
-      console.log('Prompt length:', prompt.length);
+      // Create a comprehensive prompt that includes context and clear instructions
+      let fullPrompt;
       
-      // Use generateContent instead of chat for simpler testing
-      const result = await this.model.generateContent(prompt);
-      console.log('Received result from Gemini API');
+      if (this.conversationHistory.length === 0) {
+        // First message - introduce EcoBot
+        fullPrompt = `You are EcoBot, a friendly and knowledgeable AI assistant specializing in sustainable and eco-friendly travel. You help travelers make environmentally conscious decisions about their trips.
+
+Your expertise includes:
+- Sustainable transportation options
+- Eco-friendly accommodations
+- Green travel destinations
+- Carbon footprint reduction tips
+- Responsible tourism practices
+- Environmental travel gear
+- Local eco-tourism activities
+
+Always provide helpful, specific, and actionable advice while maintaining an enthusiastic and friendly tone.
+
+User: ${message}
+
+EcoBot:`;
+      } else {
+        // Include recent conversation context
+        const recentContext = this.conversationHistory.slice(-6).join('\n');
+        fullPrompt = `You are EcoBot, a friendly AI assistant for sustainable travel. Here's our recent conversation:
+
+${recentContext}
+
+User: ${message}
+
+EcoBot:`;
+      }
       
+      console.log('Prompt length:', fullPrompt.length);
+      
+      result = await this.model.generateContent(fullPrompt);
       const response = await result.response;
-      const text = response.text();
+      text = response.text();
       
       console.log('Response received:', text.substring(0, 100) + '...');
       console.log('Response length:', text.length);
       
       if (!text || text.trim().length === 0) {
         throw new Error('Empty response from Gemini API');
+      }
+
+      // Update conversation history
+      this.conversationHistory.push(`User: ${message}`);
+      this.conversationHistory.push(`EcoBot: ${text.trim()}`);
+      
+      // Keep only last 10 exchanges (20 entries)
+      if (this.conversationHistory.length > 20) {
+        this.conversationHistory = this.conversationHistory.slice(-20);
       }
       
       return text.trim();
@@ -102,6 +163,10 @@ export class GeminiChatService {
         throw new Error('❌ Too many requests. Please wait before trying again. Free tier has limited requests per minute.');
       }
       
+      if (error?.status === 503 || error?.message?.includes('service is currently unavailable')) {
+        throw new Error('🔧 Gemini AI service is temporarily unavailable. Please try again in a few moments.');
+      }
+      
       if (error?.message?.includes('network') || error?.message?.includes('fetch') || error?.code === 'NETWORK_ERROR') {
         throw new Error('❌ Network error. Please check your internet connection.');
       }
@@ -117,6 +182,7 @@ export class GeminiChatService {
 
   resetChat() {
     console.log('Chat reset requested');
-    // Nothing to reset for generateContent approach
+    this.conversationHistory = [];
+    this.initializeChat();
   }
 }

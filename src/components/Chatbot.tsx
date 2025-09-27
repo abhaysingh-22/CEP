@@ -58,7 +58,17 @@ const Chatbot: React.FC = () => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [chatService] = useState(() => new GeminiChatService());
+  const [chatService] = useState(() => {
+    console.log('Creating GeminiChatService instance...');
+    try {
+      const service = new GeminiChatService();
+      console.log('GeminiChatService created successfully');
+      return service;
+    } catch (error) {
+      console.error('Failed to create GeminiChatService:', error);
+      throw error;
+    }
+  });
   
   // Voice command states
   const [isListening, setIsListening] = useState(false);
@@ -262,8 +272,13 @@ const Chatbot: React.FC = () => {
 
     try {
       console.log('Attempting to send message to chat service...');
+      console.log('User message content:', userMessage.content);
+      console.log('Chat service exists:', !!chatService);
+      
       const response = await chatService.sendMessage(userMessage.content);
-      console.log('Received response from chat service:', response.substring(0, 100) + '...');
+      console.log('Received response from chat service:', response);
+      console.log('Response length:', response?.length);
+      console.log('Response preview:', response?.substring(0, 100) + '...');
       
       const assistantMessage: ChatMessage = {
         id: generateId(),
@@ -287,7 +302,14 @@ const Chatbot: React.FC = () => {
       
       let errorContent = 'I apologize, but I\'m having trouble responding right now. ';
       
-      if (error?.message) {
+      // Handle specific error types
+      if (error?.message?.includes('service is currently unavailable')) {
+        errorContent = '🔧 The AI service is temporarily busy. Please wait a moment and try again!';
+      } else if (error?.message?.includes('quota')) {
+        errorContent = '📊 API usage limit reached. Please try again in a few minutes.';
+      } else if (error?.message?.includes('network')) {
+        errorContent = '🌐 Network connection issue. Please check your internet and try again.';
+      } else if (error?.message) {
         errorContent += `Error: ${error.message}`;
       } else {
         errorContent += 'Please try again in a moment.';
