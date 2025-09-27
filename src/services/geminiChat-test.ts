@@ -32,8 +32,8 @@ export class GeminiChatService {
       this.model = genAI.getGenerativeModel({ 
         model: 'gemini-2.5-flash',  // Confirmed working model with new API key
         generationConfig: {
-          maxOutputTokens: 500,
-          temperature: 0.7,
+          maxOutputTokens: 300,  // Reduced to prevent quota issues
+          temperature: 0.5,      // Lower temperature for more consistent responses
         }
       });
       this.initializeChat();
@@ -65,6 +65,12 @@ export class GeminiChatService {
     console.log('=== SENDING MESSAGE ===');
     console.log('Input message:', message);
     
+    // Add delay to prevent rate limiting
+    if (this.conversationHistory.length > 0) {
+      console.log('Adding delay to prevent rate limiting...');
+      await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
+    }
+    
     try {
       // Validate inputs
       if (!message || message.trim().length === 0) {
@@ -80,33 +86,24 @@ export class GeminiChatService {
       // Create a comprehensive prompt that includes context and clear instructions
       let fullPrompt;
       
+      // Simplified prompt that works consistently
       if (this.conversationHistory.length === 0) {
-        // First message - introduce EcoBot
-        fullPrompt = `You are EcoBot, a friendly and knowledgeable AI assistant specializing in sustainable and eco-friendly travel. You help travelers make environmentally conscious decisions about their trips.
-
-Your expertise includes:
-- Sustainable transportation options
-- Eco-friendly accommodations
-- Green travel destinations
-- Carbon footprint reduction tips
-- Responsible tourism practices
-- Environmental travel gear
-- Local eco-tourism activities
-
-Always provide helpful, specific, and actionable advice while maintaining an enthusiastic and friendly tone.
+        // First message - simple introduction
+        fullPrompt = `You are EcoBot, a helpful AI assistant for sustainable travel. Help with eco-friendly travel advice.
 
 User: ${message}
-
 EcoBot:`;
       } else {
-        // Include recent conversation context
-        const recentContext = this.conversationHistory.slice(-6).join('\n');
-        fullPrompt = `You are EcoBot, a friendly AI assistant for sustainable travel. Here's our recent conversation:
+        // Keep only the most recent exchange for context
+        const lastUserMsg = this.conversationHistory.length >= 2 ? this.conversationHistory[this.conversationHistory.length - 2] : '';
+        const lastBotMsg = this.conversationHistory.length >= 1 ? this.conversationHistory[this.conversationHistory.length - 1] : '';
+        
+        fullPrompt = `You are EcoBot, a helpful AI assistant for sustainable travel.
 
-${recentContext}
+${lastUserMsg}
+${lastBotMsg}
 
 User: ${message}
-
 EcoBot:`;
       }
       
@@ -119,17 +116,27 @@ EcoBot:`;
       console.log('Response received:', text.substring(0, 100) + '...');
       console.log('Response length:', text.length);
       
+      // If empty response, try with a simpler prompt
       if (!text || text.trim().length === 0) {
-        throw new Error('Empty response from Gemini API');
+        console.log('Empty response detected, trying simpler prompt...');
+        
+        const simplePrompt = `You are EcoBot. Answer this eco-travel question: ${message}`;
+        const fallbackResult = await this.model.generateContent(simplePrompt);
+        const fallbackResponse = await fallbackResult.response;
+        text = fallbackResponse.text();
+        
+        if (!text || text.trim().length === 0) {
+          throw new Error('Empty response from Gemini API even with simple prompt');
+        }
       }
 
-      // Update conversation history
+      // Update conversation history (keep it short)
       this.conversationHistory.push(`User: ${message}`);
       this.conversationHistory.push(`EcoBot: ${text.trim()}`);
       
-      // Keep only last 10 exchanges (20 entries)
-      if (this.conversationHistory.length > 20) {
-        this.conversationHistory = this.conversationHistory.slice(-20);
+      // Keep only last 2 exchanges (4 entries) to prevent prompt bloat
+      if (this.conversationHistory.length > 4) {
+        this.conversationHistory = this.conversationHistory.slice(-4);
       }
       
       return text.trim();
