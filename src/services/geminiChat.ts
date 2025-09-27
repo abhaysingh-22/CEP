@@ -25,7 +25,7 @@ export class GeminiChatService {
     console.log('API Key length:', API_KEY?.length);
     
     try {
-      this.model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+      this.model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
       this.initializeChat();
       console.log('Gemini service initialized successfully');
     } catch (error) {
