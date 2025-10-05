@@ -17,7 +17,7 @@ import {
   Volume2,
   VolumeX
 } from 'lucide-react';
-import { GeminiChatService, ChatMessage } from '../services/geminiChat-test';
+import { OpenRouterChatService, ChatMessage } from '../services/openRouterChat';
 
 // Voice command interfaces for better type safety
 interface SpeechRecognitionEvent extends Event {
@@ -52,20 +52,20 @@ const Chatbot: React.FC = () => {
     {
       id: '1',
       role: 'assistant',
-      content: 'Hello! I\'m EcoBot, your sustainable travel assistant. I can help you with eco-friendly travel tips, destination recommendations, and reducing your carbon footprint. How can I assist you today?',
+      content: 'Hello! I\'m EcoBot, your AI-powered sustainable travel assistant. Powered by Claude, I can help you with eco-friendly travel tips, destination recommendations, carbon footprint reduction, and sustainable tourism practices. How can I assist you today?',
       timestamp: new Date(),
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [chatService] = useState(() => {
-    console.log('Creating GeminiChatService instance...');
+    console.log('Creating OpenRouterChatService instance...');
     try {
-      const service = new GeminiChatService();
-      console.log('GeminiChatService created successfully');
+      const service = new OpenRouterChatService();
+      console.log('OpenRouterChatService created successfully');
       return service;
     } catch (error) {
-      console.error('Failed to create GeminiChatService:', error);
+      console.error('Failed to create OpenRouterChatService:', error);
       throw error;
     }
   });
