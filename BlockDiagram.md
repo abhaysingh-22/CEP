@@ -14,7 +14,7 @@ graph TB
     end
     
     subgraph API ["⚙️ API LAYER"]
-        B1[Google Gemini AI]
+        B1[OpenRouter + Claude AI]
         B2[Web Speech API]
         B3[React Query]
     end
@@ -123,7 +123,7 @@ graph TD
 ### **Backend & APIs**
 | Component | Technology | Purpose |
 |-----------|------------|---------|
-| **AI Service** | Google Gemini AI | Natural language processing |
+| **AI Service** | OpenRouter + Claude Sonnet | Natural language processing |
 | **Database** | Supabase + PostgreSQL | Data storage & real-time sync |
 | **Authentication** | Supabase Auth | User login & security |
 | **Voice** | Web Speech API | Speech recognition/synthesis |
