@@ -75,7 +75,7 @@ The development server will start at `http://localhost:8080`
 
 ### Backend & Services
 - **Supabase** - Database, authentication, and real-time features
-- **Google Gemini AI** - Advanced AI chatbot with voice capabilities
+- **OpenRouter + Claude Sonnet** - Advanced AI chatbot with voice capabilities
 - **Web Speech API** - Voice recognition and text-to-speech
 
 ### Key Libraries
@@ -136,7 +136,7 @@ CEP/
 │   │   └── Navigation.tsx # Responsive navigation
 │   ├── pages/            # Route components
 │   ├── contexts/         # React contexts (Auth, Theme)
-│   ├── services/         # API services (Gemini AI)
+│   ├── services/         # API services (OpenRouter AI)
 │   ├── integrations/     # Third-party integrations
 │   └── lib/              # Utility functions
 ├── DEPLOYMENT.md          # Detailed deployment guide
