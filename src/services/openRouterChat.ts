@@ -37,7 +37,7 @@ export interface ChatMessage {
 export class OpenRouterChatService {
   private conversationHistory: Array<{role: 'user' | 'assistant', content: string}> = [];
   private readonly MAX_HISTORY = 10; // Keep last 10 exchanges
-  private readonly MODEL = 'anthropic/claude-3.5-sonnet-20241022'; // Updated model name
+  private readonly MODEL = 'anthropic/claude-3.5-sonnet'; // Simplified model name
 
   constructor() {
     console.log('Initializing OpenRouter Chat Service...');

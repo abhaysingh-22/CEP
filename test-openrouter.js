@@ -46,7 +46,7 @@ async function testOpenRouterAPI() {
     console.log('\n📤 Sending test message:', testMessage);
     
     const completion = await openai.chat.completions.create({
-      model: "anthropic/claude-3.5-sonnet-20241022",
+      model: "anthropic/claude-3.5-sonnet",
       messages: [
         {
           role: "system",
@@ -69,7 +69,7 @@ async function testOpenRouterAPI() {
     console.log('\n📤 Sending follow-up message:', followUp);
     
     const followUpCompletion = await openai.chat.completions.create({
-      model: "anthropic/claude-3.5-sonnet-20241022", 
+      model: "anthropic/claude-3.5-sonnet", 
       messages: [
         {
           role: "system",
