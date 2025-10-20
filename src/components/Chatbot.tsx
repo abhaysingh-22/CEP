@@ -291,10 +291,10 @@ const Chatbot: React.FC = () => {
       
       // Auto-speak the response if voice is enabled
       if (voiceEnabled && response) {
-        // Add a small delay to ensure message is rendered first
+        // Reduce delay for faster voice playback
         setTimeout(() => {
           speakText(response);
-        }, 300);
+        }, 100);
       }
       
     } catch (error: any) {
