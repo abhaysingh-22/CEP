@@ -57,11 +57,19 @@ async function testOpenRouterAPI() {
           content: testMessage
         }
       ],
-      max_tokens: 500,
-      temperature: 0.7
+      max_tokens: 300,  // Optimized for faster responses
+      temperature: 0.5,
+      stream: true  // Enable streaming for real-time response
     });
 
-    const response = completion.choices[0]?.message?.content;
+    // Collect streamed response
+    let response = '';
+    for await (const chunk of completion) {
+      const delta = chunk.choices[0]?.delta?.content;
+      if (delta) {
+        response += delta;
+      }
+    }
     console.log('✅ Success! Response:', response);
     
     // Test a follow-up message
@@ -88,11 +96,19 @@ async function testOpenRouterAPI() {
           content: followUp
         }
       ],
-      max_tokens: 500,
-      temperature: 0.7
+      max_tokens: 300,  // Optimized for faster responses
+      temperature: 0.5,
+      stream: true  // Enable streaming
     });
 
-    const followUpResponse = followUpCompletion.choices[0]?.message?.content;
+    // Collect streamed follow-up response
+    let followUpResponse = '';
+    for await (const chunk of followUpCompletion) {
+      const delta = chunk.choices[0]?.delta?.content;
+      if (delta) {
+        followUpResponse += delta;
+      }
+    }
     console.log('✅ Follow-up Success! Response:', followUpResponse);
     
   } catch (error) {
