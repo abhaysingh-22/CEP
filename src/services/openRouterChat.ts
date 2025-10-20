@@ -36,7 +36,7 @@ export interface ChatMessage {
 
 export class OpenRouterChatService {
   private conversationHistory: Array<{role: 'user' | 'assistant', content: string}> = [];
-  private readonly MAX_HISTORY = 10; // Keep last 10 exchanges
+  private readonly MAX_HISTORY = 6; // Reduced from 10 for faster processing
   private readonly MODEL = 'anthropic/claude-3.5-sonnet'; // Simplified model name
 
   constructor() {
@@ -82,7 +82,7 @@ Always provide helpful, accurate, and environmentally-focused advice. Keep respo
         content: message.trim()
       });
 
-      // Prepare messages for API call
+      // Prepare messages for API call - only include essential messages for speed
       const messages = this.conversationHistory.map(msg => ({
         role: msg.role as 'user' | 'assistant' | 'system',
         content: msg.content
@@ -91,18 +91,26 @@ Always provide helpful, accurate, and environmentally-focused advice. Keep respo
       console.log('Sending request to OpenRouter...');
       console.log('Conversation history length:', this.conversationHistory.length);
 
-      const completion = await openai.chat.completions.create({
+      // Use streaming for real-time response display
+      const stream = await openai.chat.completions.create({
         model: this.MODEL,
         messages: messages,
-        max_tokens: 500,
-        temperature: 0.7,
-        stream: false
+        max_tokens: 300,
+        temperature: 0.5,
+        stream: true  // Enable streaming for faster perception
       });
 
-      console.log('Received response from OpenRouter');
+      console.log('Receiving streamed response from OpenRouter');
       
-      const responseContent = completion.choices[0]?.message?.content;
-      
+      // Collect streamed response
+      let responseContent = '';
+      for await (const chunk of stream) {
+        const delta = chunk.choices[0]?.delta?.content;
+        if (delta) {
+          responseContent += delta;
+        }
+      }
+
       if (!responseContent || responseContent.trim().length === 0) {
         throw new Error('Empty response from OpenRouter API');
       }
