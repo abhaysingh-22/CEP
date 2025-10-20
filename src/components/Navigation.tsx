@@ -131,7 +131,7 @@ const Navigation = () => {
                 </DropdownMenu>
               ) : (
                 <Link to="/auth">
-                  <Button variant="default" size="sm">
+                  <Button variant="default" size="sm" className="bg-nature-accent hover:bg-nature-accent/90 text-white font-semibold">
                     Sign In
                   </Button>
                 </Link>
@@ -220,7 +220,7 @@ const Navigation = () => {
             ) : (
               <div className="px-3 py-2 border-t border-border">
                 <Link to="/auth" onClick={() => setIsOpen(false)}>
-                  <Button variant="default" size="sm" className="w-full">
+                  <Button variant="default" size="sm" className="w-full bg-nature-accent hover:bg-nature-accent/90 text-white font-semibold">
                     Sign In
                   </Button>
                 </Link>
