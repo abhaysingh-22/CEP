@@ -23,36 +23,36 @@ const Community = () => {
   const [experiences, setExperiences] = useState<Experience[]>([
     {
       id: 1,
-      name: "Sarah Chen",
-      location: "Costa Rica",
-      experience: "Stayed at an incredible eco-lodge in Manuel Antonio where 100% of energy came from solar panels. The owners taught us about local wildlife conservation and we even helped plant trees in their reforestation project. The lodge employed local guides and sourced all food from nearby organic farms.",
+      name: "Priya Sharma",
+      location: "Kerala",
+      experience: "Stayed at an incredible eco-lodge in Munnar where 100% of energy came from solar panels. The owners taught us about local tea plantation conservation and we even helped plant trees in their reforestation project. The lodge employed local guides and sourced all food from nearby organic farms.",
       date: "2024-01-10",
       category: "Eco Lodge",
       likes: 24
     },
     {
       id: 2,
-      name: "Michael Rodriguez",
-      location: "Norway",
-      experience: "Took the electric ferry through the fjords - completely silent and emission-free! The experience was magical without the noise of traditional engines. We learned about Norway's renewable energy initiatives and how they're transforming tourism transportation.",
+      name: "Arjun Patel",
+      location: "Delhi",
+      experience: "Took the Delhi Metro - India's largest and greenest urban transport! The experience was efficient and eco-friendly. We learned about the solar-powered stations and how they're transforming urban transportation while reducing carbon emissions.",
       date: "2024-01-08",
       category: "Green Transport",
       likes: 31
     },
     {
       id: 3,
-      name: "Emma Thompson",
-      location: "New Zealand",
-      experience: "Participated in a conservation project on Stewart Island removing invasive species. It felt amazing to contribute to protecting native bird species while learning about ecosystem restoration. The tour guides were passionate conservationists.",
+      name: "Anjali Verma",
+      location: "Kolkata",
+      experience: "Participated in a Sundarbans mangrove conservation project protecting Royal Bengal tiger habitat. It felt amazing to contribute to protecting native species while learning about ecosystem restoration. The local guides were passionate conservationists.",
       date: "2024-01-05",
       category: "Conservation",
       likes: 18
     },
     {
       id: 4,
-      name: "David Kim",
-      location: "Bhutan",
-      experience: "Bhutan's high-value, low-impact tourism policy made this trip special. Our guide explained how tourism fees fund education and healthcare for locals. Every aspect was designed to minimize environmental impact while maximizing cultural exchange.",
+      name: "Vikram Singh",
+      location: "Jammu & Kashmir",
+      experience: "The Dal Lake conservation efforts made this trip special. Our guide explained how local communities work to protect the ecosystem and maintain traditional houseboat tourism sustainably. Every aspect was designed to minimize environmental impact while preserving cultural heritage.",
       date: "2024-01-03",
       category: "Sustainable Policy",
       likes: 42
