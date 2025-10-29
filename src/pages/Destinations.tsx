@@ -6,132 +6,132 @@ import { Badge } from "@/components/ui/badge";
 const Destinations = () => {
   const ecoDestinations = [
     {
-      name: "Costa Rica",
-      location: "Central America",
-      icon: TreePine,
+      name: "Kerala",
+      location: "South India",
+      icon: Waves,
       color: "text-green-500",
-      rating: 4.9,
-      bestSeason: "Dec - Apr",
-      whyEcoFriendly: "Leader in renewable energy and biodiversity conservation",
+      rating: 4.8,
+      bestSeason: "Oct - Mar",
+      whyEcoFriendly: "India's first state to implement Responsible Tourism with award-winning backwater conservation",
       practices: [
-        "100% renewable electricity by 2025",
-        "25% of land protected as national parks",
-        "Carbon neutral tourism certification program",
-        "Local community-based tourism initiatives"
+        "Responsible Tourism Initiative since 2008",
+        "Traditional Ayurvedic eco-resorts and wellness",
+        "Backwater ecosystem conservation programs",
+        "Community-based tourism with local participation"
       ],
-      highlights: ["Cloud forests", "Wildlife reserves", "Eco-lodges", "Carbon neutral goal"]
+      highlights: ["Backwater tourism", "Ayurveda wellness", "Spice plantations", "Beach conservation"]
     },
     {
-      name: "Norway",
-      location: "Northern Europe",
+      name: "Jammu & Kashmir",
+      location: "North India",
       icon: Mountain,
       color: "text-blue-500",
-      rating: 4.8,
-      bestSeason: "May - Sep",
-      whyEcoFriendly: "Sustainable transportation and renewable energy leadership",
-      practices: [
-        "Electric vehicle infrastructure nationwide",
-        "Hydroelectric power for most energy needs",
-        "Sustainable seafood and agriculture practices",
-        "Green building standards for hotels"
-      ],
-      highlights: ["Fjords", "Northern lights", "Electric ferries", "Clean energy"]
-    },
-    {
-      name: "New Zealand",
-      location: "Oceania",
-      icon: Waves,
-      color: "text-teal-500",
       rating: 4.7,
-      bestSeason: "Oct - Apr",
-      whyEcoFriendly: "Conservation-focused tourism and pristine nature protection",
+      bestSeason: "Apr - Oct",
+      whyEcoFriendly: "Himalayan biodiversity hotspot with sustainable houseboat tourism and protected valleys",
       practices: [
-        "Predator-free islands conservation program",
-        "Sustainable tourism certification (Qualmark)",
-        "Marine protected areas expansion",
-        "Indigenous Māori sustainable practices"
+        "Dal Lake conservation and restoration programs",
+        "Eco-friendly houseboat regulations",
+        "Protected wildlife corridors and national parks",
+        "Traditional handicraft tourism supporting locals"
       ],
-      highlights: ["Marine sanctuaries", "Conservation projects", "Eco-tours", "Native species protection"]
+      highlights: ["Himalayan peaks", "Houseboat stays", "Valley conservation", "Alpine meadows"]
     },
     {
-      name: "Bhutan",
-      location: "South Asia",
-      icon: Mountain,
-      color: "text-purple-500",
-      rating: 4.9,
-      bestSeason: "Sep - Nov, Mar - May",
-      whyEcoFriendly: "Carbon negative country with constitutional environmental protection",
-      practices: [
-        "Carbon negative status (absorbs more CO2 than it produces)",
-        "60% forest coverage mandated by constitution",
-        "High-value, low-impact tourism policy",
-        "Gross National Happiness over GDP focus"
-      ],
-      highlights: ["Carbon negative", "Forest preservation", "Sustainable tourism fees", "Cultural preservation"]
-    },
-    {
-      name: "Iceland",
-      location: "Northern Europe",
-      icon: Mountain,
-      color: "text-cyan-500",
-      rating: 4.6,
-      bestSeason: "Jun - Aug",
-      whyEcoFriendly: "Geothermal energy and responsible tourism practices",
-      practices: [
-        "Nearly 100% renewable energy from geothermal and hydro",
-        "Strict environmental regulations for tourism",
-        "Sustainable fishing and agriculture",
-        "Reforestation and land restoration projects"
-      ],
-      highlights: ["Geothermal energy", "Glacier protection", "Responsible whale watching", "Land restoration"]
-    },
-    {
-      name: "Kenya",
-      location: "East Africa",
+      name: "Jaipur",
+      location: "Rajasthan",
       icon: TreePine,
       color: "text-orange-500",
-      rating: 4.5,
-      bestSeason: "Jun - Oct",
-      whyEcoFriendly: "Community-based conservation and wildlife protection",
+      rating: 4.6,
+      bestSeason: "Nov - Feb",
+      whyEcoFriendly: "UNESCO World Heritage City pioneering sustainable heritage conservation and solar energy adoption",
       practices: [
-        "Community-owned conservancies",
-        "Anti-poaching initiatives",
-        "Renewable energy projects in rural areas",
-        "Sustainable wildlife tourism practices"
+        "Heritage building conservation programs",
+        "Solar energy integration in historical monuments",
+        "Traditional rainwater harvesting system revival",
+        "Eco-friendly elephant rescue sanctuaries"
       ],
-      highlights: ["Wildlife conservancies", "Community tourism", "Solar power projects", "Anti-poaching efforts"]
+      highlights: ["Heritage conservation", "Solar initiatives", "Elephant welfare", "Pink city charm"]
     },
     {
-      name: "Slovenia",
-      location: "Central Europe",
+      name: "Kolkata",
+      location: "West Bengal",
+      icon: Waves,
+      color: "text-teal-500",
+      rating: 4.5,
+      bestSeason: "Oct - Mar",
+      whyEcoFriendly: "Gateway to Sundarbans mangrove conservation with rich cultural heritage preservation",
+      practices: [
+        "Sundarbans UNESCO World Heritage protection",
+        "Royal Bengal tiger conservation initiatives",
+        "Historic tram system revival for green transport",
+        "Wetland ecosystem preservation programs"
+      ],
+      highlights: ["Sundarbans mangroves", "Tiger reserves", "Cultural heritage", "Wetland protection"]
+    },
+    {
+      name: "Delhi",
+      location: "National Capital Territory",
       icon: TreePine,
       color: "text-green-600",
       rating: 4.4,
-      bestSeason: "Apr - Oct",
-      whyEcoFriendly: "First country to be declared a Green Destination of the world",
+      bestSeason: "Oct - Mar",
+      whyEcoFriendly: "Leading India in metro expansion and green spaces with extensive tree plantation drives",
       practices: [
-        "Green Scheme of Slovenian Tourism certification",
-        "Extensive protected natural areas",
-        "Sustainable mobility initiatives",
-        "Local food and wine tourism focus"
+        "Extensive metro rail network spanning 350+ km",
+        "Urban forest development and green belt programs",
+        "Solar rooftop initiatives across government buildings",
+        "Heritage monument conservation and green tourism"
       ],
-      highlights: ["Green certification", "Protected areas", "Sustainable mobility", "Local cuisine focus"]
+      highlights: ["Green metro system", "Urban forests", "Solar energy", "Heritage sites"]
     },
     {
-      name: "Palau",
-      location: "Micronesia",
-      icon: Waves,
-      color: "text-blue-400",
-      rating: 4.8,
-      bestSeason: "Nov - Apr",
-      whyEcoFriendly: "Marine sanctuary and sustainable tourism pioneers",
+      name: "Amritsar",
+      location: "Punjab",
+      icon: TreePine,
+      color: "text-amber-500",
+      rating: 4.7,
+      bestSeason: "Nov - Mar",
+      whyEcoFriendly: "Community-driven heritage conservation with sustainable temple management practices",
       practices: [
-        "80% of waters designated as marine sanctuary",
-        "Palau Pledge for responsible tourism",
-        "Shark sanctuary protection",
-        "Visitor environmental education programs"
+        "Golden Temple eco-friendly langar feeding 100,000+ daily",
+        "Community-based tourism with local guides",
+        "Traditional water body conservation efforts",
+        "Renewable energy adoption in religious sites"
       ],
-      highlights: ["Marine sanctuary", "Shark protection", "Visitor pledge", "Coral conservation"]
+      highlights: ["Golden Temple", "Community tourism", "Langar sustainability", "Heritage walks"]
+    },
+    {
+      name: "Pune",
+      location: "Maharashtra",
+      icon: Mountain,
+      color: "text-cyan-500",
+      rating: 4.5,
+      bestSeason: "Oct - Feb",
+      whyEcoFriendly: "Smart city pioneer with extensive green building initiatives and sustainable urban planning",
+      practices: [
+        "Smart City green infrastructure and IoT projects",
+        "Eco-certified hotels, resorts and homestays",
+        "Western Ghats biodiversity hotspot conservation",
+        "Waste-to-energy and recycling programs"
+      ],
+      highlights: ["Smart city", "Green buildings", "Sahyadri trails", "Eco-homestays"]
+    },
+    {
+      name: "Ayodhya",
+      location: "Uttar Pradesh",
+      icon: Waves,
+      color: "text-blue-600",
+      rating: 4.6,
+      bestSeason: "Oct - Mar",
+      whyEcoFriendly: "Heritage city with Saryu River conservation and sustainable pilgrimage tourism development",
+      practices: [
+        "Saryu River rejuvenation and cleanup project",
+        "Eco-friendly ghats and sustainable infrastructure",
+        "Heritage site green management practices",
+        "Traditional handicrafts and cultural tourism"
+      ],
+      highlights: ["Saryu riverfront", "Heritage temples", "Pilgrimage tourism", "Cultural preservation"]
     }
   ];
 
